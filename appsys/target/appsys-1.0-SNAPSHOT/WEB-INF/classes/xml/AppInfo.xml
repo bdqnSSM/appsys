@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.appsys.dao.AppInfoDao">
+
+    <resultMap id="AppInfo" type="AppInfo" >
+        <result column="id" property="id" />
+        <result column="softwarename" property="softwarename" />
+        <result column="apkname" property="apkname" />
+        <result column="supportrom" property="supportrom" />
+        <result column="interfacelanguage" property="interfacelanguage" />
+        <result column="softwaresize" property="softwaresize" />
+        <result column="2)" property="2)" />
+        <result column="updatedate" property="updatedate" />
+        <result column="devid" property="devid" />
+        <result column="appinfo" property="appinfo" />
+        <result column="status" property="status" />
+        <result column="onsaledate" property="onsaledate" />
+        <result column="offsaledate" property="offsaledate" />
+        <result column="flatformid" property="flatformid" />
+        <result column="categorylevel3" property="categorylevel3" />
+        <result column="downloads" property="downloads" />
+        <result column="createdby" property="createdby" />
+        <result column="creationdate" property="creationdate" />
+        <result column="modifyby" property="modifyby" />
+        <result column="modifydate" property="modifydate" />
+        <result column="categorylevel1" property="categorylevel1" />
+        <result column="categorylevel2" property="categorylevel2" />
+        <result column="logopicpath" property="logopicpath" />
+        <result column="logolocpath" property="logolocpath" />
+        <result column="versionid" property="versionid" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `softwarename`,
+        `apkname`,
+        `supportrom`,
+        `interfacelanguage`,
+        `softwaresize`,
+        `2)`,
+        `updatedate`,
+        `devid`,
+        `appinfo`,
+        `status`,
+        `onsaledate`,
+        `offsaledate`,
+        `flatformid`,
+        `categorylevel3`,
+        `downloads`,
+        `createdby`,
+        `creationdate`,
+        `modifyby`,
+        `modifydate`,
+        `categorylevel1`,
+        `categorylevel2`,
+        `logopicpath`,
+        `logolocpath`,
+        `versionid`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO app_info (
+            `id`,
+            `softwarename`,
+            `apkname`,
+            `supportrom`,
+            `interfacelanguage`,
+            `softwaresize`,
+            `2)`,
+            `updatedate`,
+            `devid`,
+            `appinfo`,
+            `status`,
+            `onsaledate`,
+            `offsaledate`,
+            `flatformid`,
+            `categorylevel3`,
+            `downloads`,
+            `createdby`,
+            `creationdate`,
+            `modifyby`,
+            `modifydate`,
+            `categorylevel1`,
+            `categorylevel2`,
+            `logopicpath`,
+            `logolocpath`,
+            `versionid`
+        )
+        VALUES(
+            #{appInfo.id},
+            #{appInfo.softwarename},
+            #{appInfo.apkname},
+            #{appInfo.supportrom},
+            #{appInfo.interfacelanguage},
+            #{appInfo.softwaresize},
+            #{appInfo.2)},
+            #{appInfo.updatedate},
+            #{appInfo.devid},
+            #{appInfo.appinfo},
+            #{appInfo.status},
+            #{appInfo.onsaledate},
+            #{appInfo.offsaledate},
+            #{appInfo.flatformid},
+            #{appInfo.categorylevel3},
+            #{appInfo.downloads},
+            #{appInfo.createdby},
+            #{appInfo.creationdate},
+            #{appInfo.modifyby},
+            #{appInfo.modifydate},
+            #{appInfo.categorylevel1},
+            #{appInfo.categorylevel2},
+            #{appInfo.logopicpath},
+            #{appInfo.logolocpath},
+            #{appInfo.versionid}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM app_info
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE app_info
+        SET
+            id = #{appInfo.id},
+            softwarename = #{appInfo.softwarename},
+            apkname = #{appInfo.apkname},
+            supportrom = #{appInfo.supportrom},
+            interfacelanguage = #{appInfo.interfacelanguage},
+            softwaresize = #{appInfo.softwaresize},
+            2) = #{appInfo.2)},
+            updatedate = #{appInfo.updatedate},
+            devid = #{appInfo.devid},
+            appinfo = #{appInfo.appinfo},
+            status = #{appInfo.status},
+            onsaledate = #{appInfo.onsaledate},
+            offsaledate = #{appInfo.offsaledate},
+            flatformid = #{appInfo.flatformid},
+            categorylevel3 = #{appInfo.categorylevel3},
+            downloads = #{appInfo.downloads},
+            createdby = #{appInfo.createdby},
+            creationdate = #{appInfo.creationdate},
+            modifyby = #{appInfo.modifyby},
+            modifydate = #{appInfo.modifydate},
+            categorylevel1 = #{appInfo.categorylevel1},
+            categorylevel2 = #{appInfo.categorylevel2},
+            logopicpath = #{appInfo.logopicpath},
+            logolocpath = #{appInfo.logolocpath},
+            versionid = #{appInfo.versionid},
+            UpdateTime = NOW()
+        WHERE `id` = #{appInfo.id}
+    </update>
+
+
+    <select id="load" parameterType="java.util.Map" resultMap="AppInfo">
+        SELECT <include refid="Base_Column_List" />
+        FROM app_info
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="AppInfo">
+        SELECT <include refid="Base_Column_List" />
+        FROM app_info
+        LIMIT #{pageNo}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM app_info
+    </select>
+
+</mapper>

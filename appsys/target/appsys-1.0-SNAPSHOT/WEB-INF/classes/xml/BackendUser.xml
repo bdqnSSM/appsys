@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.appsys.dao.BackendUserDao">
+
+    <resultMap id="BackendUser" type="BackendUser" >
+        <result column="id" property="id" />
+        <result column="usercode" property="usercode" />
+        <result column="username" property="username" />
+        <result column="usertype" property="usertype" />
+        <result column="createdby" property="createdby" />
+        <result column="creationdate" property="creationdate" />
+        <result column="modifyby" property="modifyby" />
+        <result column="modifydate" property="modifydate" />
+        <result column="userpassword" property="userpassword" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `usercode`,
+        `username`,
+        `usertype`,
+        `createdby`,
+        `creationdate`,
+        `modifyby`,
+        `modifydate`,
+        `userpassword`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO backend_user (
+            `id`,
+            `usercode`,
+            `username`,
+            `usertype`,
+            `createdby`,
+            `creationdate`,
+            `modifyby`,
+            `modifydate`,
+            `userpassword`
+        )
+        VALUES(
+            #{backendUser.id},
+            #{backendUser.usercode},
+            #{backendUser.username},
+            #{backendUser.usertype},
+            #{backendUser.createdby},
+            #{backendUser.creationdate},
+            #{backendUser.modifyby},
+            #{backendUser.modifydate},
+            #{backendUser.userpassword}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM backend_user
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE backend_user
+        SET
+            id = #{backendUser.id},
+            usercode = #{backendUser.usercode},
+            username = #{backendUser.username},
+            usertype = #{backendUser.usertype},
+            createdby = #{backendUser.createdby},
+            creationdate = #{backendUser.creationdate},
+            modifyby = #{backendUser.modifyby},
+            modifydate = #{backendUser.modifydate},
+            userpassword = #{backendUser.userpassword},
+            UpdateTime = NOW()
+        WHERE `id` = #{backendUser.id}
+    </update>
+
+
+    <select id="load" parameterType="java.util.Map" resultMap="BackendUser">
+        SELECT <include refid="Base_Column_List" />
+        FROM backend_user
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="BackendUser">
+        SELECT <include refid="Base_Column_List" />
+        FROM backend_user
+        LIMIT #{pageNo}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM backend_user
+    </select>
+
+</mapper>

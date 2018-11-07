@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.appsys.dao.DevUserDao">
+
+    <resultMap id="DevUser" type="DevUser" >
+        <result column="id" property="id" />
+        <result column="devcode" property="devCode" />
+        <result column="devname" property="devName" />
+        <result column="devpassword" property="devPassword" />
+        <result column="devemail" property="devEmail" />
+        <result column="devinfo" property="devInfo" />
+        <result column="createdby" property="createdBy" />
+        <result column="creationdate" property="creationDate" />
+        <result column="modifyby" property="modifyBy" />
+        <result column="modifydate" property="modifyDate" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `devcode`,
+        `devname`,
+        `devpassword`,
+        `devemail`,
+        `devinfo`,
+        `createdby`,
+        `creationdate`,
+        `modifyby`,
+        `modifydate`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO dev_user (
+            `id`,
+            `devcode`,
+            `devname`,
+            `devpassword`,
+            `devemail`,
+            `devinfo`,
+            `createdby`,
+            `creationdate`,
+            `modifyby`,
+            `modifydate`
+        )
+        VALUES(
+            default,
+            #{devUser.devCode},
+            #{devUser.devName},
+            #{devUser.devPassword},
+            #{devUser.devEmail},
+            #{devUser.devInfo},
+            #{devUser.createdBy},
+            #{devUser.creationDate},
+            #{devUser.modifyBy},
+            #{devUser.modifyDate}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM dev_user
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE dev_user
+        SET
+            devcode = #{devUser.devCode},
+            devname = #{devUser.devName},
+            devpassword = #{devUser.devPassword},
+            devemail = #{devUser.devEmail},
+            devinfo = #{devUser.devInfo},
+            createdby = #{devUser.createdBy},
+            creationdate = #{devUser.creationDate},
+            modifyby = #{devUser.modifyBy},
+            modifydate = #{devUser.modifyDate},
+            modifydate = NOW()
+        WHERE `id` = #{devUser.id}
+    </update>
+
+
+    <select id="load" parameterType="java.util.Map" resultMap="DevUser">
+        SELECT <include refid="Base_Column_List" />
+        FROM dev_user
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="DevUser">
+        SELECT <include refid="Base_Column_List" />
+        FROM dev_user
+        limit #{pageNo},#{pageSize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="_int">
+        SELECT count(1)
+        FROM dev_user
+    </select>
+</mapper>

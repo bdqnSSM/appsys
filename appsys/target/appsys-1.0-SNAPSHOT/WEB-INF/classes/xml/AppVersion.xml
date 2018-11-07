@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.appsys.dao.AppVersionDao">
+
+    <resultMap id="AppVersion" type="AppVersion" >
+        <result column="id" property="id" />
+        <result column="appid" property="appid" />
+        <result column="versionno" property="versionno" />
+        <result column="versioninfo" property="versioninfo" />
+        <result column="publishstatus" property="publishstatus" />
+        <result column="downloadlink" property="downloadlink" />
+        <result column="versionsize" property="versionsize" />
+        <result column="2)" property="2)" />
+        <result column="createdby" property="createdby" />
+        <result column="creationdate" property="creationdate" />
+        <result column="modifyby" property="modifyby" />
+        <result column="modifydate" property="modifydate" />
+        <result column="apklocpath" property="apklocpath" />
+        <result column="apkfilename" property="apkfilename" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `appid`,
+        `versionno`,
+        `versioninfo`,
+        `publishstatus`,
+        `downloadlink`,
+        `versionsize`,
+        `2)`,
+        `createdby`,
+        `creationdate`,
+        `modifyby`,
+        `modifydate`,
+        `apklocpath`,
+        `apkfilename`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO app_version (
+            `id`,
+            `appid`,
+            `versionno`,
+            `versioninfo`,
+            `publishstatus`,
+            `downloadlink`,
+            `versionsize`,
+            `2)`,
+            `createdby`,
+            `creationdate`,
+            `modifyby`,
+            `modifydate`,
+            `apklocpath`,
+            `apkfilename`
+        )
+        VALUES(
+            #{appVersion.id},
+            #{appVersion.appid},
+            #{appVersion.versionno},
+            #{appVersion.versioninfo},
+            #{appVersion.publishstatus},
+            #{appVersion.downloadlink},
+            #{appVersion.versionsize},
+            #{appVersion.2)},
+            #{appVersion.createdby},
+            #{appVersion.creationdate},
+            #{appVersion.modifyby},
+            #{appVersion.modifydate},
+            #{appVersion.apklocpath},
+            #{appVersion.apkfilename}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM app_version
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE app_version
+        SET
+            id = #{appVersion.id},
+            appid = #{appVersion.appid},
+            versionno = #{appVersion.versionno},
+            versioninfo = #{appVersion.versioninfo},
+            publishstatus = #{appVersion.publishstatus},
+            downloadlink = #{appVersion.downloadlink},
+            versionsize = #{appVersion.versionsize},
+            2) = #{appVersion.2)},
+            createdby = #{appVersion.createdby},
+            creationdate = #{appVersion.creationdate},
+            modifyby = #{appVersion.modifyby},
+            modifydate = #{appVersion.modifydate},
+            apklocpath = #{appVersion.apklocpath},
+            apkfilename = #{appVersion.apkfilename},
+            UpdateTime = NOW()
+        WHERE `id` = #{appVersion.id}
+    </update>
+
+
+    <select id="load" parameterType="java.util.Map" resultMap="AppVersion">
+        SELECT <include refid="Base_Column_List" />
+        FROM app_version
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="AppVersion">
+        SELECT <include refid="Base_Column_List" />
+        FROM app_version
+        LIMIT #{pageNo}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM app_version
+    </select>
+
+</mapper>

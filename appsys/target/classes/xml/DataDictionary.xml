@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.appsys.dao.DataDictionaryDao">
+
+    <resultMap id="DataDictionary" type="DataDictionary" >
+        <result column="id" property="id" />
+        <result column="typecode" property="typecode" />
+        <result column="typename" property="typename" />
+        <result column="valueid" property="valueid" />
+        <result column="valuename" property="valuename" />
+        <result column="createdby" property="createdby" />
+        <result column="creationdate" property="creationdate" />
+        <result column="modifyby" property="modifyby" />
+        <result column="modifydate" property="modifydate" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `typecode`,
+        `typename`,
+        `valueid`,
+        `valuename`,
+        `createdby`,
+        `creationdate`,
+        `modifyby`,
+        `modifydate`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO data_dictionary (
+            `id`,
+            `typecode`,
+            `typename`,
+            `valueid`,
+            `valuename`,
+            `createdby`,
+            `creationdate`,
+            `modifyby`,
+            `modifydate`
+        )
+        VALUES(
+            #{dataDictionary.id},
+            #{dataDictionary.typecode},
+            #{dataDictionary.typename},
+            #{dataDictionary.valueid},
+            #{dataDictionary.valuename},
+            #{dataDictionary.createdby},
+            #{dataDictionary.creationdate},
+            #{dataDictionary.modifyby},
+            #{dataDictionary.modifydate}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM data_dictionary
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE data_dictionary
+        SET
+            id = #{dataDictionary.id},
+            typecode = #{dataDictionary.typecode},
+            typename = #{dataDictionary.typename},
+            valueid = #{dataDictionary.valueid},
+            valuename = #{dataDictionary.valuename},
+            createdby = #{dataDictionary.createdby},
+            creationdate = #{dataDictionary.creationdate},
+            modifyby = #{dataDictionary.modifyby},
+            modifydate = #{dataDictionary.modifydate},
+            UpdateTime = NOW()
+        WHERE `id` = #{dataDictionary.id}
+    </update>
+
+
+    <select id="load" parameterType="java.util.Map" resultMap="DataDictionary">
+        SELECT <include refid="Base_Column_List" />
+        FROM data_dictionary
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="DataDictionary">
+        SELECT <include refid="Base_Column_List" />
+        FROM data_dictionary
+        LIMIT #{pageNo}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="int">
+        SELECT count(1)
+        FROM data_dictionary
+    </select>
+
+</mapper>

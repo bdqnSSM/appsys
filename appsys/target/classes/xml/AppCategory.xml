@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.appsys.dao.AppCategoryDao">
+
+    <resultMap id="AppCategory" type="AppCategory" >
+        <result column="id" property="id" />
+        <result column="categorycode" property="categorycode" />
+        <result column="categoryname" property="categoryname" />
+        <result column="parentid" property="parentid" />
+        <result column="createdby" property="createdby" />
+        <result column="creationtime" property="creationtime" />
+        <result column="modifyby" property="modifyby" />
+        <result column="modifydate" property="modifydate" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `categorycode`,
+        `categoryname`,
+        `parentid`,
+        `createdby`,
+        `creationtime`,
+        `modifyby`,
+        `modifydate`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO app_category (
+            `id`,
+            `categorycode`,
+            `categoryname`,
+            `parentid`,
+            `createdby`,
+            `creationtime`,
+            `modifyby`,
+            `modifydate`
+        )
+        VALUES(
+            #{appCategory.id},
+            #{appCategory.categorycode},
+            #{appCategory.categoryname},
+            #{appCategory.parentid},
+            #{appCategory.createdby},
+            #{appCategory.creationtime},
+            #{appCategory.modifyby},
+            #{appCategory.modifydate}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM app_category
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE app_category
+        SET
+            id = #{appCategory.id},
+            categorycode = #{appCategory.categorycode},
+            categoryname = #{appCategory.categoryname},
+            parentid = #{appCategory.parentid},
+            createdby = #{appCategory.createdby},
+            creationtime = #{appCategory.creationtime},
+            modifyby = #{appCategory.modifyby},
+            modifydate = #{appCategory.modifydate},
+            UpdateTime = NOW()
+        WHERE `id` = #{appCategory.id}
+    </update>
+
+
+    <select id="load" parameterType="java.util.Map" resultMap="AppCategory">
+        SELECT <include refid="Base_Column_List" />
+        FROM app_category
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="AppCategory">
+        SELECT <include refid="Base_Column_List" />
+        FROM app_category
+        LIMIT #{pageNo}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM app_category
+    </select>
+
+</mapper>
